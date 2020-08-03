@@ -1,0 +1,20 @@
+.clearfix::before,
+.clearfix::after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+a {
+	text-decoration: none;
+	font-size: 14px;
+	color: black;
+}
+
+.fa-user,
+.fa-lock,
+.fa-phone,
+.fa-sms {
+	font-size: 18px;
+	margin-right: 10px;
+}

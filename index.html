@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>统一身份认证</title>
+	<link rel="shortcut icon" href="./favicon.ico">
+	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/base.css">
+	<link rel="stylesheet" href="./css/m-style.css">
+	<link href="https://cdn.bootcdn.net/ajax/libs/minireset.css/0.0.2/minireset.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="./js/shake.js"></script>
+	<script>
+		$(document).ready(function() {
+			// 登录窗口默认聚焦
+			$(".account").focus();
+
+			var speed = 20000;
+			var i = 0;
+			var length = $(".slideshow li").length;
+
+			setInterval(runPlay, speed);
+
+			function runPlay() {
+				i++;
+				i = i > (length-1) ? 0 : i;
+				$(".slideshow li").eq(i).fadeIn(1500).siblings().fadeOut(1500);
+			};
+
+			// 动态时间显示
+			setInterval(function() {
+		        var now = (new Date()).toLocaleString();
+				$(".date").text(now);
+			}, 1000);
+		})
+	</script>
+	<script>
+		$(document).ready(function() {
+			// 登录按钮点击事件
+			$(".login-button").click(function() {
+				// 登录检查
+				checkLogin();
+			});
+
+			// 登录检查
+			function checkLogin() {
+				if ($(".account").val() == "") {
+					// 设置块抖动
+					$(".account-text").css("border-color", "red").shake(2, 5, 500);
+					$(".message").html("<span class='account-message' style='padding-left: 5px'><i class='fa fa-exclamation'></i> 请输入学号或职工号</span>").css({
+						"color": "red",
+						"font-size": "14px"
+					});
+					$(".account").focus();
+					return false;
+				} else if ($(".password").val() == "") {
+					// 设置块抖动
+					$(".password-text").css("border-color", "red").shake(2, 5, 500);
+					$(".message").html("<span class='password-message' style='padding-left: 5px'><i class='fa fa-exclamation'></i> 请输入密码</span>").css({
+						"color": "red",
+						"font-size": "14px"
+					});
+					$(".password").focus();	
+					return false;				
+				}
+			};
+
+			// 监听学号输入框
+			$(".account").bind("input propertychange", function() {
+				if ($(this).val() == "") {
+					return false;
+				} else {
+					$(".password-text").css("border-color", "#e0e0e0");
+					$(".password-message").remove();	
+					$(".account-text").css("border-color", "#e0e0e0");
+					if ($(".message span").hasClass("account-message")) {
+						$(".account-message").remove();
+					}
+				}
+			});
+
+			// 监听密码t输入框
+			$(".password").bind("input propertychange", function() {
+				if ($(this).val() == "") {
+					return false;
+				} else {
+					$(".account-text").css("border-color", "#e0e0e0");
+					$(".account-message").remove();	
+					$(".password-text").css("border-color", "#e0e0e0");
+					if ($(".message span").hasClass("password-message")) {
+						$(".password-message").remove();
+					}
+				}
+			});
+
+		})
+	</script>
+	<script>
+		$(document).ready(function() {
+			// 短信验证码登录点击事件
+			$(".sms-login").click(function() {
+				$(".login-panel").hide();
+				$(".sms-box").show();
+				$(".username-login").css("color", "black");
+				$(".sms-login").css("color", "#418a46");
+				$(".sms-box .phone").focus();
+				$(".login-tab li:first-child").css({
+					"background-color": "#f5f6f7",
+					"border-bottom": "1px solid #e9e9e9"
+				});
+				$(".login-tab li:last-child").css({
+					"background-color": "#fff",
+					"border-bottom": "none"
+				});
+			});
+
+			// 用户名密码登录点击事件
+			$(".username-login").click(function() {
+				$(".login-panel").hide();
+				$(".username-password-box").show();
+				$(".sms-login").css("color", "black");
+				$(".username-login").css("color", "#418a46");
+				$(".username-password-box .account").focus();
+				$(".login-tab li:first-child").css({
+					"background-color": "#fff",
+					"border-bottom": "none"
+				});
+				$(".login-tab li:last-child").css({
+					"background-color": "#f5f6f7",
+					"border-bottom": "1px solid #e9e9e9"
+				});
+			});
+
+			$(".login-tab a").hover(function() {
+				$(this).css("color", "#418a46");
+			});
+		})
+	</script>
+	<style>
+		@media screen and (max-width: 960px) {
+			.header,
+			.main,
+			.footer {
+				display: none;
+			}
+
+			.m-main {
+				display: block;
+			}
+		}
+	</style>
+</head>
+<body>
+	<!-- 头部 -->
+	<div class="header">
+		<!-- 头部容器 -->
+		<div class="header-container clearfix">
+			<!-- logo -->
+			<div class="logo">
+				<a href="https://www.shnu.edu.cn">
+					<img src="./img/logo.png">
+				</a>
+			</div>
+			<!-- logo右侧分割线 -->
+			<div class="line"></div>
+			<!-- logo右侧标题 -->
+			<div class="title">
+				<span>统一身份认证</span>
+			</div>
+			<div class="date"></div>
+		</div>
+	</div>
+	<!-- 内容 -->
+	<div class="main">
+		<!-- 轮播图 -->
+	    <div class="slideshow">
+	    	<ul>
+	    		<li>
+	    		    <img src="./img/bg-01.jpg">
+	    		</li>
+	    		<li>
+	    			<img src="./img/bg-02.jpg">
+	    		</li>
+	    		<li>
+	    			<img src="./img/bg-03.jpg">
+	    		</li>
+	    		<li>
+	    			<img src="./img/bg-04.jpg">
+	    		</li>   		
+	    	</ul>
+	    </div>
+		<!-- 内容容器 -->
+		<div class="main-container">
+		    <!-- 登录窗口 -->
+		    <div class="login-box">
+
+		    	<!-- 登录选项卡 -->
+		    	<div class="login-tab">
+		    		<ul>
+		    			<li>
+		    				<a class="username-login" href="javascript:void(0);">用户名密码登录</a>
+		    			</li>
+		    			<li>
+		    				<a class="sms-login" href="javascript:void(0);">短信验证码登录</a>
+		    			</li>
+		    		</ul>
+		    	</div>
+
+		    	<!-- 用户名密码登录面板 -->
+		    	<div class="login-panel username-password-box">
+		    		<!-- 账号输入框 -->
+		    		<div class="input-text account-text">
+		    			<i class="fa fa-user"></i>
+		    			<input class="account" type="text" name="user" id="username" placeholder=" 学工号 / Account ID" autocomplete="off">
+		    		</div>
+		    		<!-- 密码输入框 -->
+		    		<div class="input-text password-text">
+		    			<i class="fa fa-lock"></i>
+		    			<input class="password" type="password" name="password" placeholder=" 密码 / Password" autocomplete="off">
+		    		</div>
+		    		<span class="message"></span>
+		    		<!-- 登录按钮 -->
+		    		<input class="login-button" type="button" value="登录">
+		    		<!-- 其它内容 -->
+		    		<div class="other">
+		    			<a href="#">账号激活</a>
+		    			<span>｜</span>
+		    			<a href="#">忘记密码？</a>
+		    		</div>
+		    	</div>
+
+		    	<!-- 短信验证码登录面板 -->
+		        <div class="login-panel sms-box">
+	    		    <!-- 手机号输入框 -->
+		    		<div class="input-text phone-text">
+		    			<i class="fa fa-phone"></i>
+		    			<input class="phone" type="text" name="user" placeholder=" 手机号 / Mobile Phone Number" autocomplete="off">
+		    		</div>
+		    		<!-- 动态码输入框 -->
+		    		<div class="input-text sms-text">
+		    			<i class="fa fa-sms"></i>
+		    			<input class="sms" type="password" name="password" placeholder=" 短信验证码" autocomplete="off">
+		    			<!-- 获取验证码框 -->
+		    		    <a class="get-sms" href="#">获取验证码</a>
+		    		</div>
+
+		    		<span class="sms-message"></span>
+		    		<!-- 登录按钮 -->
+		    		<input class="sms-login-button" type="button" value="登录">
+		    		<!-- 其它内容 -->
+		    		<div class="other">
+		    			<a href="#">收不到验证码？</a>
+		    		</div>	        	
+		        </div>
+
+		    </div>
+		</div>
+	</div>
+	<!-- 底部 -->
+	<div class="footer">
+		<span>
+		    Copyright 2020 All rights reserved 上海师范大学 信息化办公室
+	    </span>
+	</div>
+
+	<!-- 移动端 -->
+	<div class="m-main">
+		<!-- logo -->
+		<div class="m-logo"></div>
+		<!-- 内容容器 -->
+		<div class="m-main-container">
+			<!-- 学工号输入框 -->
+			<div class="m-input-text m-account-text">
+				<i class="fa fa-user m-user"></i>
+				<input class="m-account" type="text" placeholder=" 学工号 / Account ID">
+			</div>
+			<!-- 密码输入框 -->
+			<div class="m-input-text m-password-text">
+				<i class="fa fa-lock m-lock"></i>
+			    <input class="m-password" type="password" placeholder=" 密码 / Password">
+			</div>
+			<!-- 登录按钮 -->
+			<input class="m-login-button" type="button" value="登录">
+			<!-- 其它内容 -->
+			<div class="m-other">
+				<a href="javascript:void();">账号激活</a>
+				<span>|</span>
+				<a href="javascript:void();">忘记密码？</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
