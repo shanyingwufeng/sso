@@ -1,6 +1,6 @@
 /* 头部容器 */
 .header-container {
-	height: 100px;
+	height: 80px;
 	display: flex;
 	align-items: center;
 	position: relative;
