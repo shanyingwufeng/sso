@@ -1,6 +1,7 @@
 /* 头部容器 */
 .header-container {
 	height: 80px;
+	padding: 0 10px;
 	display: flex;
 	align-items: center;
 	position: relative;
