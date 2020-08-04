@@ -18,3 +18,21 @@ a {
 	font-size: 18px;
 	margin-right: 10px;
 }
+
+/* 设置宽度和水平居中 */
+.w {
+	width: 960px;
+	margin: 0 auto;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+}
+
+p#error {
+	display: none;
+	color: red;
+	font-size: 14px;
+	position: absolute;
+	right: 0;
+}

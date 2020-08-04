@@ -1,8 +1,6 @@
 /* 头部容器 */
 .header-container {
-	width: 960px;
 	height: 100px;
-	margin: 0 auto;
 	display: flex;
 	align-items: center;
 	position: relative;
@@ -23,8 +21,8 @@
 .header-container .line {
 	width: 1px;
 	height: 50px;
-	border: 1px solid black;
-	margin: 20px;
+	border: 1px solid #999;
+	margin: auto 20px;
 }
 
 /* logo右侧标题 */
@@ -35,7 +33,7 @@
 /* 动态日期 */
 .header-container .date {
 	position: absolute;
-	right: 10px;
+	right: 0;
 }
 
 /* 内容 */
@@ -59,14 +57,11 @@
 	height: 500px;
 	/* 保证图片不失真 */
 	object-fit: cover;
-	vertical-align: middle;
 }
 
 /* 内容容器 */
 .main-container {
-	width: 960px;
 	height: 500px;
-	margin: 0 auto;
 	position: relative;
 	overflow: hidden;
 }
@@ -97,7 +92,13 @@
 /* 登录选项卡-ul-li */
 .login-box .login-tab ul li {
 	flex-grow: 1;
+}
+
+/* 登录选项卡-ul-li-a */
+.login-box .login-tab ul li a {
+	display: block;
 	padding: 15px 0;
+	width: 100%;
 }
 
 /* 登录选项卡-最后一个li */
@@ -122,7 +123,7 @@
 
 /* 登录面板 */
 .login-box .login-panel {
-	padding: 20px;
+	padding: 20px 20px 10px 20px;
 	height: 237px;
 	display: none;
 }
@@ -144,6 +145,7 @@
 	border: 1px solid #e0e0e0;
 	align-items: center;
 	display: flex;
+	position: relative;
 }
 
 /* 输入块-input设置 */
@@ -164,7 +166,11 @@
 	color: #fff;
 	cursor: pointer;
 	font-size: 17px;
+}
 
+/* 登录按钮移入事件 */
+.login-box .username-password-box .login-button:hover {
+	background-color: green;
 }
 
 /* 登录面板其它内容 */
@@ -260,6 +266,11 @@
 	font-size: 17px;
 	outline: none;
 	border: none;
+}
+
+/* 登录按钮移入事件 */
+.login-box .sms-box .sms-login-button:hover {
+	background-color: green;
 }
 
 /* 登录面板其它内容 */

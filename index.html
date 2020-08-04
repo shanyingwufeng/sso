@@ -11,66 +11,111 @@
 	<link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet">
 	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="./js/shake.js"></script>
+
+    <!-- 默认 -->
 	<script>
 		$(document).ready(function() {
-			// 登录窗口默认聚焦
-			$(".account").focus();
+			// 默认账号输入框聚焦
+			$(".account").focus().parent(".account-text").css("border-color", "#418a46");
+		})
+	</script>
 
-			var speed = 20000;
+    <!-- 动态日期 -->
+    <script>
+    	$(document).ready(function() {
+			setInterval(function() {
+		        var now = (new Date()).toLocaleString();
+				$(".date").text(now);
+			}, 1000);
+    	})
+    </script>
+
+	<!-- 轮播图 -->
+	<script>
+		$(document).ready(function() {
+			// 图片切换速度
+			var speed = 10000;
+
+			// 图片索引
 			var i = 0;
+
+			// 图片数量
 			var length = $(".slideshow li").length;
 
+			// 定时器
 			setInterval(runPlay, speed);
 
+			// 定时器方法
 			function runPlay() {
 				i++;
 				i = i > (length-1) ? 0 : i;
 				$(".slideshow li").eq(i).fadeIn(1500).siblings().fadeOut(1500);
 			};
-
-			// 动态时间显示
-			setInterval(function() {
-		        var now = (new Date()).toLocaleString();
-				$(".date").text(now);
-			}, 1000);
 		})
 	</script>
+
+	<!-- 事件 -->
 	<script>
 		$(document).ready(function() {
+			// 输入框失去焦点事件
+			$(".input-text input").focusout(function() {
+				$(this).parent(".input-text").css("border-color", "#e0e0e0");
+			});
+
+			// 输入框所在div点击事件
+			$(".input-text").click(function() {
+				$(this).css("border-color", "#418a46");
+			});
+
 			// 登录按钮点击事件
 			$(".login-button").click(function() {
-				// 登录检查
+				// 登录检查方法
 				checkLogin();
 			});
 
-			// 登录检查
+			// 登录检查方法
 			function checkLogin() {
+				// 判断账号输入框值为空
 				if ($(".account").val() == "") {
-					// 设置块抖动
-					$(".account-text").css("border-color", "red").shake(2, 5, 500);
+					// 设置边框颜色块和块抖动
+					$(".account-text").css("border-color", "red").shake(2, 5, 200);
+
+					// 像span元素添加html-登录消息显示
 					$(".message").html("<span class='account-message' style='padding-left: 5px'><i class='fa fa-exclamation'></i> 请输入学号或职工号</span>").css({
 						"color": "red",
 						"font-size": "14px"
 					});
+
+					// 聚焦账号输入框
 					$(".account").focus();
+
+					// 退出if
 					return false;
 				} else if ($(".password").val() == "") {
-					// 设置块抖动
-					$(".password-text").css("border-color", "red").shake(2, 5, 500);
+					// 设置边框颜色和块抖动
+					$(".password-text").css("border-color", "red").shake(2, 5, 200);
+
+					// 像span元素添加html-登录消息显示
 					$(".message").html("<span class='password-message' style='padding-left: 5px'><i class='fa fa-exclamation'></i> 请输入密码</span>").css({
 						"color": "red",
 						"font-size": "14px"
 					});
+
+					// 聚焦密码输入框
 					$(".password").focus();	
+
+					// 退出if
 					return false;				
 				}
 			};
 
-			// 监听学号输入框
+			// 监听账号输入框
 			$(".account").bind("input propertychange", function() {
+				// 判断账号输入框值为0
 				if ($(this).val() == "") {
 					return false;
 				} else {
+					// 账号输入框输入了值之后
 					$(".password-text").css("border-color", "#e0e0e0");
 					$(".password-message").remove();	
 					$(".account-text").css("border-color", "#e0e0e0");
@@ -80,11 +125,13 @@
 				}
 			});
 
-			// 监听密码t输入框
+			// 监听密码输入框
 			$(".password").bind("input propertychange", function() {
+				// 判断密码输入框值为0
 				if ($(this).val() == "") {
 					return false;
 				} else {
+					// 密码输入框输入值之后
 					$(".account-text").css("border-color", "#e0e0e0");
 					$(".account-message").remove();	
 					$(".password-text").css("border-color", "#e0e0e0");
@@ -94,14 +141,11 @@
 				}
 			});
 
-		})
-	</script>
-	<script>
-		$(document).ready(function() {
 			// 短信验证码登录点击事件
 			$(".sms-login").click(function() {
 				$(".login-panel").hide();
-				$(".sms-box").show();
+				// 1秒时间显示sms-box
+				$(".sms-box").fadeIn(1000);
 				$(".username-login").css("color", "black");
 				$(".sms-login").css("color", "#418a46");
 				$(".sms-box .phone").focus();
@@ -117,12 +161,14 @@
 				$(".password").val("");
 				$(".phone").val("");
 				$(".sms").val("");
+				$(".account-message").remove();
+				$(".password-message").remove();
 			});
 
 			// 用户名密码登录点击事件
 			$(".username-login").click(function() {
 				$(".login-panel").hide();
-				$(".username-password-box").show();
+				$(".username-password-box").fadeIn(1000);
 				$(".sms-login").css("color", "black");
 				$(".username-login").css("color", "#418a46");
 				$(".username-password-box .account").focus();
@@ -138,15 +184,15 @@
 				$(".password").val("");
 				$(".phone").val("");
 				$(".sms").val("");
-			});
-
-			$(".login-tab a").hover(function() {
-				$(this).css("color", "#418a46");
+				$(".account-message").remove();
+				$(".password-message").remove();
 			});
 		})
 	</script>
+
+
 	<style>
-		@media screen and (max-width: 960px) {
+		@media screen and (max-width: 980px) {
 			.header,
 			.main,
 			.footer {
@@ -163,10 +209,10 @@
 	<!-- 头部 -->
 	<div class="header">
 		<!-- 头部容器 -->
-		<div class="header-container clearfix">
+		<div class="header-container clearfix w">
 			<!-- logo -->
 			<div class="logo">
-				<a href="https://www.shnu.edu.cn">
+				<a href="javascript:void();" onclick="location.reload()">
 					<img src="./img/logo.png">
 				</a>
 			</div>
@@ -199,7 +245,7 @@
 	    	</ul>
 	    </div>
 		<!-- 内容容器 -->
-		<div class="main-container">
+		<div class="main-container w">
 		    <!-- 登录窗口 -->
 		    <div class="login-box">
 
@@ -220,8 +266,10 @@
 		    		<!-- 账号输入框 -->
 		    		<div class="input-text account-text">
 		    			<i class="fa fa-user"></i>
-		    			<input class="account" type="text" name="user" id="username" placeholder=" 学工号 / Account ID" autocomplete="off">
-		    		</div>
+						<input class="account" type="text" name="user" id="username" placeholder=" 学工号 / Account ID" autocomplete="off">
+						<!-- 限制输入账号的位数 -->
+						<p id="error">账号就10位数噢！</p>						
+					</div>
 		    		<!-- 密码输入框 -->
 		    		<div class="input-text password-text">
 		    			<i class="fa fa-lock"></i>
@@ -248,7 +296,7 @@
 		    		<!-- 动态码输入框 -->
 		    		<div class="input-text sms-text">
 		    			<i class="fa fa-sms"></i>
-		    			<input class="sms" type="password" name="password" placeholder=" 短信验证码" autocomplete="off">
+		    			<input class="sms" type="password" name="password" placeholder=" 短信验证码 / SMS" autocomplete="off">
 		    			<!-- 获取验证码框 -->
 		    		    <a class="get-sms" href="#">获取验证码</a>
 		    		</div>
@@ -298,6 +346,50 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		var input = document.getElementById("username");
+		var errorMsg = document.getElementById("error");
+
+		var state = {
+			value : "",
+			error : false
+		}
+
+		var setState = function(newState) {
+			state = {
+				...state,
+				...newState
+			}
+			render()
+		}
+
+		var render = function() {
+			input.value = state.value;
+			if (state.error) {
+				errorMsg.style.display = 'block'
+			} else {
+				errorMsg.style.display = 'none'
+			}
+		}
+
+		var handleInput = function(value) {
+			if (value.length < 10) {
+				setState({
+					value : value,
+					error : false
+				})
+			} else {
+				setState({
+					error: true
+				})
+			}
+		}
+
+		input.addEventListener("input", function() {
+			handleInput(this.value);
+		})
+	</script>
 </body>
 </html>
 
